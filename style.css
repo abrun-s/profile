@@ -7,15 +7,21 @@
   }
 }
 body {
-  background-color: rgba(119, 116, 116,0.8);
-  color: #55FF55;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 18px;
+  font-family: Arial, sans-serif;
+  background-color: #87ceeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 h1,h2,h3{
   font-family:'Courier New', Courier, monospace;
   font: size 38px;
+}
+h1{
+  font-size: 26px;
+  color: #004d61;
 }
 a {
   font-family: 'Courier New', Courier, monospace;
@@ -30,12 +36,17 @@ a:hover{
   margin: auto;
   align-content: center;
 }
-.card-white {
-background-color: #f1f0f0;
-padding: 18px;
-box-shadow: 2px, 3px, 18px, white;
-border: 5px soild white;
-text-align: center;
+.details {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.details ul {
+  list-style-type: none;
+}
+
+.details li {
+  margin: 8px 0;
 }
 
 .list-inline {
@@ -43,15 +54,27 @@ text-align: center;
   padding: 0px, auto;
 }
 
-.img-circle{
+.profile-pic{
   border-radius: 50%;
-  margin: auto;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  object-position: top;
+  margin: 15px;
+  width: 150px;
+  height: 150px;
+  /* object-fit: cover; */
+  /* object-position: top; */
 }
 
 .card-top{
+  background-color: #f0f8ff;
+  padding: 20px;
+  width: 320px;
+  border-radius: 15px;
+  box-shadow: 2px, 3px, 18px, white;
+  border: 2px soild #5f9ea0;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  color: #007f9e;
+  font-style: italic;
 }
