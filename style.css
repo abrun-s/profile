@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+@media (max-width: 720px) {
+  /* For a screen < 720px, this CSS will be read */
+  .container {
+    width: 500px;
+  }
+}
+body {
+  background-color: rgba(119, 116, 116,0.8);
+  color: #55FF55;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+}
+
+h1,h2,h3{
+  font-family:'Courier New', Courier, monospace;
+  font: size 38px;
+}
+a {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+  text-decoration: none;
+}
+a:hover{
+  color: #39ce39;
+}
+.container{
+  width: 500px;
+  margin: auto;
+  align-content: center;
+}
+.card-white {
+background-color: #f1f0f0;
+padding: 18px;
+box-shadow: 2px, 3px, 18px, white;
+border: 5px soild white;
+text-align: center;
+}
+
+.list-inline {
+  display: inline-block;
+  padding: 0px, auto;
+}
+
+.img-circle{
+  border-radius: 50%;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.card-top{
+  text-align: center;
+}
