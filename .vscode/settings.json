@@ -1,0 +1,4 @@
+{
+  "typescript.tsserver.web.projectWideIntellisense.suppressSemanticErrors": true,
+  "editor.suggest.preview": true
+}
