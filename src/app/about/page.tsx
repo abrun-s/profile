@@ -1,21 +1,20 @@
-import { motion } from 'framer-motion';
+import Image from 'next/image'
 
-const About = () => {
+export default function About() {
   return (
     <div className="max-w-4xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-lg shadow-lg p-8"
-      >
+      <div className="bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-6">About Me</h1>
         
-        <div className="flex items-center space-x-6 mb-8">
-          <img 
-            src="/images/adam_brun.png" 
-            alt="Adam Brunson" 
-            className="w-48 h-48 rounded-full object-cover"
-          />
+        <div className="flex flex-col md:flex-row md:items-center md:space-x-6 mb-8">
+          <div className="w-48 h-48 relative mb-4 md:mb-0">
+            <Image 
+              src="/images/profile.jpg" 
+              alt="Adam Brunson"
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
           <div>
             <p className="text-lg text-gray-700 mb-4">
               Hello! I'm Adam Brunson, a Jr. Developer and Professional Motion Graphics Artist.
@@ -23,13 +22,28 @@ const About = () => {
               engaging digital experiences.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-600 hover:text-gray-900">
+              <a 
+                href="https://github.com/yourusername" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-gray-900"
+              >
                 <i className="fab fa-github text-2xl"></i>
               </a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">
+              <a 
+                href="https://linkedin.com/in/yourusername" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-gray-900"
+              >
                 <i className="fab fa-linkedin text-2xl"></i>
               </a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">
+              <a 
+                href="https://vimeo.com/yourusername" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-gray-900"
+              >
                 <i className="fab fa-vimeo text-2xl"></i>
               </a>
             </div>
@@ -61,9 +75,7 @@ const About = () => {
             </p>
           </section>
         </div>
-      </motion.div>
+      </div>
     </div>
-  );
-};
-
-export default About; 
+  )
+} 
