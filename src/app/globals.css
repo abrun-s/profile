@@ -52,5 +52,26 @@ body {
   z-index: 1000;
 }
 
+.slide-in {
+  opacity: 0;
+  transition: 1.3s;
+  transform: translateX(-30%) scale(0.95);
+}
+
+.slide-in.active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.text-opacity {
+  opacity: 0;
+  transition: .8s;
+  transform: scale(0.6);
+}
+
+.text-opacity.active {
+  opacity: 1;
+  transform: scale(1);
+}
 /* Font Awesome icons */
 @import url('https://use.fontawesome.com/releases/v6.1.2/css/all.css');
