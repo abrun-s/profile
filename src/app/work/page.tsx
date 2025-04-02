@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Modal from 'react-modal'
 
-Modal.setAppElement('#root')
 
 interface WorkItem {
   id: string
@@ -28,16 +27,38 @@ const workItems: WorkItem[] = [
   },
   {
     id: 'project2',
-    title: 'Web Application',
+    title: 'Intermediate Next',
     type: 'code',
     thumbnail: '/images/project2.jpg',
     appUrl: 'https://your-app-url.com',
-    githubUrl: 'https://github.com/yourusername/project',
+    githubUrl: 'https://github.com/abrun-s/intermediate-nextjs',
     description: 'A full-stack web application built with React and Node.js.'
+  },
+  {
+    id: 'project3',
+    title: 'PawPal',
+    type: 'code',
+    thumbnail: '/images/project2.jpg',
+    appUrl: 'https://your-app-url.com',
+    githubUrl: 'https://github.com/abrun-s/PawPal',
+    description: 'A full-stack web application built with React and Node.js.'
+  },
+  {
+    id: 'project4',
+    title: 'cafe-react',
+    type: 'code',
+    thumbnail: '/images/project2.jpg',
+    appUrl: 'https://your-app-url.com',
+    githubUrl: 'https://github.com/abrun-s/cafe-react',
+    description: 'Find a cafe that is laptop friendly in Tokyo.'
   }
 ]
 
 export default function Work() {
+  useEffect(() => {
+    Modal.setAppElement(document.body)
+  }, []);
+
   const [selectedItem, setSelectedItem] = useState<WorkItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -54,14 +75,14 @@ export default function Work() {
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-900 mb-8">My Work</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {workItems.map((item) => (
           <div
             key={item.id}
             className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
-            <div 
+            <div
               className="relative group cursor-pointer aspect-video"
               onClick={() => openModal(item)}
             >
@@ -90,7 +111,7 @@ export default function Work() {
                 </span>
               </div>
             </div>
-            
+
             <div className="p-4">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
               <p className="text-gray-600 mb-4">{item.description}</p>
@@ -139,7 +160,7 @@ export default function Work() {
                   <i className="fas fa-times text-xl"></i>
                 </button>
               </div>
-              
+
               {selectedItem.type === 'video' && selectedItem.videoUrl && (
                 <div className="aspect-video mb-4">
                   <iframe
@@ -150,9 +171,9 @@ export default function Work() {
                   />
                 </div>
               )}
-              
+
               <p className="text-gray-600 mb-4">{selectedItem.description}</p>
-              
+
               <div className="flex space-x-4">
                 {selectedItem.appUrl && (
                   <a
@@ -181,4 +202,4 @@ export default function Work() {
       </Modal>
     </div>
   )
-} 
+}
