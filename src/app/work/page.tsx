@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Modal from 'react-modal'
-
+import { workItems } from './(video)/page'
+import  Player  from '@vimeo/player'
 
 interface WorkItem {
-  id: string
   title: string
   type: 'video' | 'code'
   thumbnail: string
@@ -16,44 +16,6 @@ interface WorkItem {
   description: string
 }
 
-const workItems: WorkItem[] = [
-  {
-    id: 'project1',
-    title: 'Motion Graphics Demo',
-    type: 'video',
-    thumbnail: 'https://player.vimeo.com/video/YOUR_VIDEO_ID/thumbnail',
-    videoUrl: 'https://player.vimeo.com/video/YOUR_VIDEO_ID',
-    description: 'A showcase of motion graphics and animation work.'
-  },
-  {
-    id: 'project2',
-    title: 'Intermediate Next',
-    type: 'code',
-    thumbnail: '/images/project2.jpg',
-    appUrl: 'https://your-app-url.com',
-    githubUrl: 'https://github.com/abrun-s/intermediate-nextjs',
-    description: 'A full-stack web application built with React and Node.js.'
-  },
-  {
-    id: 'project3',
-    title: 'PawPal',
-    type: 'code',
-    thumbnail: '/images/project2.jpg',
-    appUrl: 'https://your-app-url.com',
-    githubUrl: 'https://github.com/abrun-s/PawPal',
-    description: 'A full-stack web application built with React and Node.js.'
-  },
-  {
-    id: 'project4',
-    title: 'cafe-react',
-    type: 'code',
-    thumbnail: '/images/project2.jpg',
-    appUrl: 'https://your-app-url.com',
-    githubUrl: 'https://github.com/abrun-s/cafe-react',
-    description: 'Find a cafe that is laptop friendly in Tokyo.'
-  }
-]
-
 export default function Work() {
   useEffect(() => {
     Modal.setAppElement(document.body)
@@ -61,6 +23,8 @@ export default function Work() {
 
   const [selectedItem, setSelectedItem] = useState<WorkItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [hoveredVideo, setHoveredVideo] = useState<string | null>(null)
+  const [playbackTime, setPlaybackTime] = useState<number>(0)
 
   const openModal = (item: WorkItem) => {
     setSelectedItem(item)
@@ -70,8 +34,15 @@ export default function Work() {
   const closeModal = () => {
     setIsModalOpen(false)
     setSelectedItem(null)
+    setPlaybackTime(0)
   }
 
+  const handleTimeUpdate = (iframe: HTMLIFrameElement) => {
+    const player = new Player(iframe);
+    player.getCurrentTime().then((time: number) => {
+      setPlaybackTime(time);
+    });
+  }
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-900 mb-8">My Work</h1>
@@ -79,20 +50,27 @@ export default function Work() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {workItems.map((item) => (
           <div
-            key={item.id}
+            key={item.title}
             className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
             <div
               className="relative group cursor-pointer aspect-video"
+              onMouseEnter={() => setHoveredVideo(item.title)}
+              onMouseLeave={() => setHoveredVideo(null)}
               onClick={() => openModal(item)}
             >
               {item.type === 'video' ? (
                 <div className="w-full h-full">
                   <iframe
-                    src={`${item.thumbnail}?autoplay=1&loop=1&background=1&muted=1`}
+                    src={
+                      hoveredVideo === item.title
+                        ? `${item.videoUrl}?autoplay=1&loop=1&background=1&muted=1`
+                        : `${item.videoUrl}?autoplay=0&loop=1&background=1&muted=1`
+                    }
                     className="w-full h-full"
                     allow="autoplay; fullscreen"
                     title={item.title}
+                    onLoad={(e) => handleTimeUpdate(e.target as HTMLIFrameElement)}
                   />
                 </div>
               ) : (
@@ -109,33 +87,6 @@ export default function Work() {
                 <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {item.type === 'video' ? 'Play Video' : 'View Project'}
                 </span>
-              </div>
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-              <p className="text-gray-600 mb-4">{item.description}</p>
-              <div className="flex space-x-4">
-                {item.appUrl && (
-                  <a
-                    href={item.appUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    View App
-                  </a>
-                )}
-                {item.githubUrl && (
-                  <a
-                    href={item.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    View Code
-                  </a>
-                )}
               </div>
             </div>
           </div>
@@ -164,7 +115,9 @@ export default function Work() {
               {selectedItem.type === 'video' && selectedItem.videoUrl && (
                 <div className="aspect-video mb-4">
                   <iframe
-                    src={selectedItem.videoUrl}
+                    src={`${selectedItem.videoUrl}?autoplay=1&start=${Math.floor(
+                      playbackTime
+                    )}`}
                     className="w-full h-full"
                     allow="autoplay; fullscreen"
                     title={selectedItem.title}
