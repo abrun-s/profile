@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
         <Navbar />
-        <main className="container mx-auto px-4 py-8">
+        <main>
           {children}
         </main>
       </body>
